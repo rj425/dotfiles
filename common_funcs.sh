@@ -1507,7 +1507,7 @@ eks-list-update-kubeconfigs() {
     fi
     
     for cluster_name in "${clusters[@]}"; do
-      local config_name="${ACCOUNT_ALIAS}_${cluster_name}"
+      local config_name="${cluster_name}"
       local config_path="${kubeconfig_dir}/${config_name}"
       
       echo "  - Updating kubeconfig for: $cluster_name"
@@ -1516,7 +1516,7 @@ eks-list-update-kubeconfigs() {
       if aws eks update-kubeconfig \
         --name ${cluster_name} \
         --region ${aws_region} \
-        --alias "${config_name}" \
+        --alias "${cluster_name}" \
         --kubeconfig "${config_path}" >/dev/null 2>&1; then
         echo "    ✓ Saved to: ${config_path}"
         
